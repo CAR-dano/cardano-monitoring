@@ -78,3 +78,9 @@ Examples:
 
 - This standard must be versioned with infra changes.
 - Any contract change requires matching updates in backend docs and monitoring configs.
+
+## Sprint 1 companion docs
+
+- `docs/sprint-1/env-matrix.md`
+- `docs/sprint-1/deployment-notes.md`
+- `docs/sprint-1/evidence-checklist.md`
