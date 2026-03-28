@@ -84,3 +84,7 @@ Examples:
 - `docs/sprint-1/env-matrix.md`
 - `docs/sprint-1/deployment-notes.md`
 - `docs/sprint-1/evidence-checklist.md`
+
+## Sprint 3 companion docs
+
+- `docs/sprint-3/otel-jaeger-deployment.md`
