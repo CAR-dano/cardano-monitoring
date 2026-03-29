@@ -1,0 +1,130 @@
+groups:
+  - name: platform-health-staging
+    rules:
+      - alert: HighContainerMemoryUsageStagingWarning
+        expr: |
+          (
+            sum(container_memory_working_set_bytes{namespace="staging",container!="",image!=""})
+            /
+            sum(container_spec_memory_limit_bytes{namespace="staging",container!="",image!=""})
+          ) > 0.80
+        for: 10m
+        labels:
+          severity: warning
+          env: staging
+          team: platform
+        annotations:
+          summary: Staging container memory usage above 80%
+          description: Aggregate staging container memory usage exceeded warning threshold.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#high-memory-usage
+
+      - alert: HighContainerMemoryUsageStagingCritical
+        expr: |
+          (
+            sum(container_memory_working_set_bytes{namespace="staging",container!="",image!=""})
+            /
+            sum(container_spec_memory_limit_bytes{namespace="staging",container!="",image!=""})
+          ) > 0.90
+        for: 10m
+        labels:
+          severity: critical
+          env: staging
+          team: platform
+        annotations:
+          summary: Staging container memory usage above 90%
+          description: Aggregate staging container memory usage reached critical threshold.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#high-memory-usage
+
+      - alert: LowNodeDiskFreeStagingWarning
+        expr: |
+          (
+            node_filesystem_avail_bytes{mountpoint="/",fstype!~"tmpfs|overlay"}
+            /
+            node_filesystem_size_bytes{mountpoint="/",fstype!~"tmpfs|overlay"}
+          ) < 0.20
+        for: 15m
+        labels:
+          severity: warning
+          env: staging
+          team: platform
+        annotations:
+          summary: Staging node disk free below 20%
+          description: Root filesystem free space in staging is below warning threshold.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#low-disk-space
+
+      - alert: ServiceAvailabilityStagingCritical
+        expr: up{job=~"cardano-backend|prometheus|alertmanager|otel-collector|jaeger"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          env: staging
+          team: platform
+        annotations:
+          summary: Staging service unavailable
+          description: '{{ $labels.job }} is down in staging.'
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#service-unavailable
+
+  - name: platform-health-production
+    rules:
+      - alert: HighContainerMemoryUsageProductionWarning
+        expr: |
+          (
+            sum(container_memory_working_set_bytes{namespace="production",container!="",image!=""})
+            /
+            sum(container_spec_memory_limit_bytes{namespace="production",container!="",image!=""})
+          ) > 0.75
+        for: 10m
+        labels:
+          severity: warning
+          env: production
+          team: platform
+        annotations:
+          summary: Production container memory usage above 75%
+          description: Aggregate production container memory usage exceeded warning threshold.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#high-memory-usage
+
+      - alert: HighContainerMemoryUsageProductionCritical
+        expr: |
+          (
+            sum(container_memory_working_set_bytes{namespace="production",container!="",image!=""})
+            /
+            sum(container_spec_memory_limit_bytes{namespace="production",container!="",image!=""})
+          ) > 0.85
+        for: 10m
+        labels:
+          severity: critical
+          env: production
+          team: platform
+        annotations:
+          summary: Production container memory usage above 85%
+          description: Aggregate production container memory usage reached critical threshold.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#high-memory-usage
+
+      - alert: LowNodeDiskFreeProductionWarning
+        expr: |
+          (
+            node_filesystem_avail_bytes{mountpoint="/",fstype!~"tmpfs|overlay"}
+            /
+            node_filesystem_size_bytes{mountpoint="/",fstype!~"tmpfs|overlay"}
+          ) < 0.15
+        for: 15m
+        labels:
+          severity: warning
+          env: production
+          team: platform
+        annotations:
+          summary: Production node disk free below 15%
+          description: Root filesystem free space in production is below warning threshold.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#low-disk-space
+
+      - alert: ServiceAvailabilityProductionCritical
+        expr: up{job=~"cardano-backend|prometheus|alertmanager|otel-collector|jaeger"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          env: production
+          team: platform
+        annotations:
+          summary: Production service unavailable
+          description: '{{ $labels.job }} is down in production.'
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#service-unavailable
