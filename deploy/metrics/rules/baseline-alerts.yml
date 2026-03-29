@@ -1,0 +1,33 @@
+groups:
+  - name: monitoring-baseline
+    rules:
+      - alert: PrometheusTargetDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: warning
+          team: platform
+        annotations:
+          summary: Prometheus target is down
+          description: 'Target {{ $labels.job }} on {{ $labels.instance }} is down.'
+
+      - alert: PrometheusConfigReloadFailed
+        expr: prometheus_config_last_reload_successful == 0
+        for: 2m
+        labels:
+          severity: critical
+          team: platform
+        annotations:
+          summary: Prometheus config reload failed
+          description: Prometheus failed to reload its configuration.
+
+      - alert: CardanoBackendMetricsScrapeFailing
+        expr: up{job="cardano-backend"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          service: cardano-backend
+          team: backend
+        annotations:
+          summary: cardano-backend metrics scrape is failing
+          description: Prometheus cannot scrape cardano-backend /api/v1/metrics.

@@ -88,3 +88,4 @@ Examples:
 ## Sprint 3 companion docs
 
 - `docs/sprint-3/otel-jaeger-deployment.md`
+- `docs/sprint-3/prometheus-alertmanager-baseline.md`
