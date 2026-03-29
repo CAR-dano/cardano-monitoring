@@ -89,3 +89,4 @@ Examples:
 
 - `docs/sprint-3/otel-jaeger-deployment.md`
 - `docs/sprint-3/prometheus-alertmanager-baseline.md`
+- `docs/sprint-3/grafana-datasources.md`
