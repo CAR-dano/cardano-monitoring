@@ -90,3 +90,8 @@ Examples:
 - `docs/sprint-3/otel-jaeger-deployment.md`
 - `docs/sprint-3/prometheus-alertmanager-baseline.md`
 - `docs/sprint-3/grafana-datasources.md`
+
+## Sprint 4 companion docs
+
+- `docs/sprint-4/alert-rules-env-tuning.md`
+- `docs/runbooks/alerts.md`

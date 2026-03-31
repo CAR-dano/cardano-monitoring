@@ -1,0 +1,160 @@
+groups:
+  - name: cardano-backend-slo-staging
+    rules:
+      - alert: HighHttpErrorRateStagingWarning
+        expr: |
+          (
+            sum(rate(http_request_errors_total{service="cardano-backend",env="staging"}[5m]))
+            /
+            sum(rate(http_requests_total{service="cardano-backend",env="staging"}[5m]))
+          ) > 0.05
+          and
+          sum(rate(http_requests_total{service="cardano-backend",env="staging"}[5m])) > 0
+        for: 5m
+        labels:
+          severity: warning
+          env: staging
+          service: cardano-backend
+          team: backend
+        annotations:
+          summary: Staging error rate is above 5%
+          description: cardano-backend staging error rate is above warning threshold for 5m.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#high-error-rate
+
+      - alert: HighHttpErrorRateStagingCritical
+        expr: |
+          (
+            sum(rate(http_request_errors_total{service="cardano-backend",env="staging"}[5m]))
+            /
+            sum(rate(http_requests_total{service="cardano-backend",env="staging"}[5m]))
+          ) > 0.10
+          and
+          sum(rate(http_requests_total{service="cardano-backend",env="staging"}[5m])) > 0
+        for: 5m
+        labels:
+          severity: critical
+          env: staging
+          service: cardano-backend
+          team: backend
+        annotations:
+          summary: Staging error rate is above 10%
+          description: cardano-backend staging error rate reached critical threshold for 5m.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#high-error-rate
+
+      - alert: HighHttpLatencyP95StagingWarning
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (le) (
+              rate(http_request_duration_seconds_bucket{service="cardano-backend",env="staging"}[5m])
+            )
+          ) > 1.5
+        for: 10m
+        labels:
+          severity: warning
+          env: staging
+          service: cardano-backend
+          team: backend
+        annotations:
+          summary: Staging latency p95 above 1.5s
+          description: cardano-backend staging p95 latency exceeded warning threshold for 10m.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#high-p95-latency
+
+      - alert: HighHttpLatencyP95StagingCritical
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (le) (
+              rate(http_request_duration_seconds_bucket{service="cardano-backend",env="staging"}[5m])
+            )
+          ) > 2.5
+        for: 10m
+        labels:
+          severity: critical
+          env: staging
+          service: cardano-backend
+          team: backend
+        annotations:
+          summary: Staging latency p95 above 2.5s
+          description: cardano-backend staging p95 latency reached critical threshold for 10m.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#high-p95-latency
+
+  - name: cardano-backend-slo-production
+    rules:
+      - alert: HighHttpErrorRateProductionWarning
+        expr: |
+          (
+            sum(rate(http_request_errors_total{service="cardano-backend",env="production"}[5m]))
+            /
+            sum(rate(http_requests_total{service="cardano-backend",env="production"}[5m]))
+          ) > 0.02
+          and
+          sum(rate(http_requests_total{service="cardano-backend",env="production"}[5m])) > 0
+        for: 5m
+        labels:
+          severity: warning
+          env: production
+          service: cardano-backend
+          team: backend
+        annotations:
+          summary: Production error rate is above 2%
+          description: cardano-backend production error rate is above warning threshold for 5m.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#high-error-rate
+
+      - alert: HighHttpErrorRateProductionCritical
+        expr: |
+          (
+            sum(rate(http_request_errors_total{service="cardano-backend",env="production"}[5m]))
+            /
+            sum(rate(http_requests_total{service="cardano-backend",env="production"}[5m]))
+          ) > 0.05
+          and
+          sum(rate(http_requests_total{service="cardano-backend",env="production"}[5m])) > 0
+        for: 5m
+        labels:
+          severity: critical
+          env: production
+          service: cardano-backend
+          team: backend
+        annotations:
+          summary: Production error rate is above 5%
+          description: cardano-backend production error rate reached critical threshold for 5m.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#high-error-rate
+
+      - alert: HighHttpLatencyP95ProductionWarning
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (le) (
+              rate(http_request_duration_seconds_bucket{service="cardano-backend",env="production"}[5m])
+            )
+          ) > 1
+        for: 10m
+        labels:
+          severity: warning
+          env: production
+          service: cardano-backend
+          team: backend
+        annotations:
+          summary: Production latency p95 above 1s
+          description: cardano-backend production p95 latency exceeded warning threshold for 10m.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#high-p95-latency
+
+      - alert: HighHttpLatencyP95ProductionCritical
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (le) (
+              rate(http_request_duration_seconds_bucket{service="cardano-backend",env="production"}[5m])
+            )
+          ) > 2
+        for: 10m
+        labels:
+          severity: critical
+          env: production
+          service: cardano-backend
+          team: backend
+        annotations:
+          summary: Production latency p95 above 2s
+          description: cardano-backend production p95 latency reached critical threshold for 10m.
+          runbook_url: https://github.com/CAR-dano/cardano-monitoring/blob/main/docs/runbooks/alerts.md#high-p95-latency
