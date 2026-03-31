@@ -90,6 +90,7 @@ Examples:
 - `docs/sprint-3/otel-jaeger-deployment.md`
 - `docs/sprint-3/prometheus-alertmanager-baseline.md`
 - `docs/sprint-3/grafana-datasources.md`
+- `docs/sprint-3/infra-bootstrap-structure.md`
 
 ## Sprint 4 companion docs
 
