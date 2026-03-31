@@ -97,3 +97,7 @@ Examples:
 - `docs/sprint-4/alertmanager-routing.md`
 - `docs/sprint-4/grafana-dashboard-suite.md`
 - `docs/runbooks/alerts.md`
+
+## Sprint 5 companion docs
+
+- `docs/sprint-5/reliability-controls-retention-backup.md`
