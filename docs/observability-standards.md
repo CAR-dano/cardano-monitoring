@@ -101,3 +101,10 @@ Examples:
 ## Sprint 5 companion docs
 
 - `docs/sprint-5/reliability-controls-retention-backup.md`
+- `docs/sprint-5/observability-runbooks-and-dryrun.md`
+
+## Runbooks
+
+- `docs/runbooks/alerts.md`
+- `docs/runbooks/incident-triage.md`
+- `docs/runbooks/oncall-dry-run.md`
