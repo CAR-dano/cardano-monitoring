@@ -94,4 +94,5 @@ Examples:
 ## Sprint 4 companion docs
 
 - `docs/sprint-4/alert-rules-env-tuning.md`
+- `docs/sprint-4/alertmanager-routing.md`
 - `docs/runbooks/alerts.md`
