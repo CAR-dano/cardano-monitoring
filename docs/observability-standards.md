@@ -95,4 +95,5 @@ Examples:
 
 - `docs/sprint-4/alert-rules-env-tuning.md`
 - `docs/sprint-4/alertmanager-routing.md`
+- `docs/sprint-4/grafana-dashboard-suite.md`
 - `docs/runbooks/alerts.md`
