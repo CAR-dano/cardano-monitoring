@@ -6,7 +6,7 @@ services:
     environment:
       - COLLECTOR_OTLP_ENABLED=true
     ports:
-      - '16686:16686'
+      - '127.0.0.1:16686:16686'
     healthcheck:
       test: ['CMD-SHELL', 'wget --spider -q http://localhost:16686 || exit 1']
       interval: 30s
@@ -21,9 +21,9 @@ services:
     volumes:
       - ./collector-config.yaml:/etc/otelcol-contrib/config.yaml:ro
     ports:
-      - '4317:4317'
-      - '4318:4318'
-      - '13133:13133'
+      - '127.0.0.1:4317:4317'
+      - '127.0.0.1:4318:4318'
+      - '127.0.0.1:13133:13133'
     depends_on:
       jaeger:
         condition: service_healthy

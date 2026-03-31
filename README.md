@@ -53,7 +53,18 @@ Health endpoints:
 - OTel Collector: `http://localhost:13133`
 - Jaeger UI: `http://localhost:16686`
 - Grafana: `http://localhost:3000/api/health`
-- Proxy entrypoint: `http://localhost:8080/`
+- Proxy entrypoint: `https://localhost/`
+
+## Secure exposure model
+
+- Public entrypoint: `monitoring-cardano.inspeksimobil.id` (Grafana only)
+- Proxy enforces:
+  - HTTPS redirect + TLS termination
+  - basic auth
+  - IP allowlist
+  - explicit block for internal endpoints (Prometheus/Loki/Jaeger/OTel)
+
+See `deploy/proxy/README.md` for required auth and certificate files.
 
 ## Notes
 
