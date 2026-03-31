@@ -91,6 +91,7 @@ Examples:
 - `docs/sprint-3/prometheus-alertmanager-baseline.md`
 - `docs/sprint-3/grafana-datasources.md`
 - `docs/sprint-3/infra-bootstrap-structure.md`
+- `docs/sprint-3/secure-access-and-tls.md`
 
 ## Sprint 4 companion docs
 

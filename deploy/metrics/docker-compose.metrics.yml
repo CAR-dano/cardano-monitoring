@@ -15,7 +15,7 @@ services:
       - ./secrets:/etc/prometheus/secrets:ro
       - prometheus-data:/prometheus
     ports:
-      - '9090:9090'
+      - '127.0.0.1:9090:9090'
     depends_on:
       alertmanager:
         condition: service_healthy
@@ -37,7 +37,7 @@ services:
       - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
       - alertmanager-data:/alertmanager
     ports:
-      - '9093:9093'
+      - '127.0.0.1:9093:9093'
     healthcheck:
       test: ['CMD-SHELL', 'wget --spider -q http://localhost:9093/-/healthy || exit 1']
       interval: 30s

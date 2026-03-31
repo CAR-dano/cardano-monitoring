@@ -4,11 +4,15 @@ services:
     container_name: cardano-monitoring-proxy
     restart: unless-stopped
     ports:
-      - '8080:80'
+      - '80:80'
+      - '443:443'
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/certs:ro
+      - ./auth/.htpasswd:/etc/nginx/.htpasswd:ro
+      - ./allowlist/allowlist.conf:/etc/nginx/conf.d/allowlist.conf:ro
     healthcheck:
-      test: ['CMD-SHELL', 'wget --spider -q http://localhost/ || exit 1']
+      test: ['CMD-SHELL', 'wget --spider -q http://localhost/healthz || exit 1']
       interval: 30s
       timeout: 5s
       retries: 5
